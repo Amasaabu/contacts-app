@@ -21,7 +21,11 @@ const saveContact = async (contact) => {
 
     })
 }
-
+const updateContact = async (updatedContactList) => {
+    //write the file
+    fs.writeFileSync(VALUES.SAVE_FILE, JSON.stringify(updatedContactList, null, 2))
+    return;
+}
 const getAllContact = async () => {
     //read file and return all contacts
     const data = fs.readFileSync(VALUES.SAVE_FILE, 'utf8');
@@ -29,4 +33,4 @@ const getAllContact = async () => {
 }
 
 
-module.exports = {saveContact, getAllContact}
+module.exports = {saveContact, getAllContact, updateContact}

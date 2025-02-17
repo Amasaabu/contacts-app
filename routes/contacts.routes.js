@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {ContactBuilder} = require('../models/contact');
-const {saveContact, getAllContact} = require('../services/contact');
+const {saveContact, getAllContact, updateContact} = require('../services/contact');
 
 //save new contact
 router.post('/contacts', async(req, res) => {
@@ -80,13 +80,30 @@ router.get('/contacts/id/:id', async(req, res) => {
 })
 
 //delete a contact
-router.delete('/contacts/:id', (req, res) => {
-
+router.delete('/contacts/:id', async(req, res) => {
+    const id = req.params.id;
+    try {
+        let contacts = await getAllContact();
+        //ensure contact exists
+        let cnt = contacts.find(c => c.id === id);
+        if (!cnt) {
+            res.status(404).send('Contact not found');
+            return;
+        } 
+        let newContactList = contacts.filter(c => c.id != id);
+   
+        updateContact(newContactList)
+        res.send({message: 'Contact deleted successfully'});
+        
+    } catch (error) {
+        res.status(500).send('Error getting contact')
+    }
 })
+
 
 //update a contact
 router.put('/contacts/:id', (req, res) => {
-
+    
 })
 
 
