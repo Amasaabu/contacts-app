@@ -1,4 +1,38 @@
 
+# Contacts App
+
+This application was built using the express JS framework. It serves static html, css and javascript file for the frontend and serves an API.
+
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/Amasaabu/contacts-app
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+
 ## Deployment
 
 Since this is a single and simple application, I suggest running the application in an AWS EC2 instance. Also setting up a deployment pipeline using github ations to automate the deployment of the application to the EC2 instance (t2.micro running Ubuntu)
