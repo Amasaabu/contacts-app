@@ -33,4 +33,8 @@ const getAllContact = async () => {
 }
 
 
-module.exports = {saveContact, getAllContact, updateContact}
+const getContactById = async (id) => {
+    const contacts = await getAllContact();
+    return contacts.find(c => c.id === id);
+}
+module.exports = {saveContact, getAllContact, updateContact, getContactById}
