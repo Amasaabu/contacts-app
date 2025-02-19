@@ -5,21 +5,28 @@ const {validateUserInput} = require("../utils")
 
 //save new contact
 router.post('/contacts', async(req, res) => {
-    let errorMessage =  validateUserInput(req.body,  ['firstName', 'lastName', 'email', 'phone'])
-    if (errorMessage) {
-        res.status(400).send({message: errorMessage});
-        return;
+    //validate input
+    try {
+        let errorMessage =  validateUserInput(req.body,  ['firstName', 'lastName', 'email', 'phone'])
+        if (errorMessage) {
+            res.status(400).send({message: errorMessage});
+            return;
+        }
+        let contact = new ContactBuilder()
+        contact
+        .generateId()
+        .setEmail(req.body.email)
+        .setFirstName(req.body.firstName)
+        .setLastName(req.body.lastName)
+        .setPhone(req.body.phone).build();
+        
+        await saveContact(contact);
+        res.send(contact);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('Error saving contact')
     }
-    let contact = new ContactBuilder()
-    contact
-    .generateId()
-    .setEmail(req.body.email)
-    .setFirstName(req.body.firstName)
-    .setLastName(req.body.lastName)
-    .setPhone(req.body.phone).build();
-    
-    await saveContact(contact);
-    res.send(contact);
+ 
 })
 
 
