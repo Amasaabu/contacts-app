@@ -1,10 +1,35 @@
 
 # Contacts App
 
-This application was built using the express JS framework. It serves static html, css and javascript file for the frontend and serves an API.
+This application was built using the express JS framework. It serves  html, css and javascript file for the frontend and serves an API.
 
+## Data Store for Contacts
+The application saves contacts in a json file (contacts.json). If this file does not exist it is created by default.
 
+## The backend
+The backend is an API that sends and receives JSON. The route created are
+1. Create contact end point (POST-/api/contacts)
+2. Get all contacts (GET-/api/contacts)
+3. Search by First Name (GET-/api/contacts/firstname/${firstname})
+4. Search by Last Name (GET- /api/contacts/lastname/${lastname})
+5. Search by Id (GET- - /api/contacts/id/${id})
+6. Delete Contact (DELETE- /api/contacts/${id})
+7. Edit Contact (PATCH - /api/contacts/${id})
 
+examplt payload when making a post or PATCH
+```bash
+{
+    "email": "test@gmail.com",
+    "phone": "08091121109",
+    "firstName": "John",
+    "lastName": "Doe"
+}
+
+```
+
+## The Frontend
+The express application serves the public folder which serves a HTML, CSS, and javascript file.
+Upon loading the app, saved contacts are loaded. Users can create a new contact, edit a contact and delete a contact.
 
 ## Run Locally
 
@@ -32,7 +57,7 @@ Start the server
   npm run start
 ```
 
-
+This will run the application on port 3000 by default
 ## Deployment
 
 Since this is a single and simple application, I suggest running the application in an AWS EC2 instance. Also setting up a deployment pipeline using github ations to automate the deployment of the application to the EC2 instance (t2.micro running Ubuntu)
