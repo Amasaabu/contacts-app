@@ -36,6 +36,7 @@ const APIFUNCTIONS = {
   const contactForm = document.getElementById("contactForm")
   const contactItems = document.getElementById("contactItems")
   const submitBtn = document.getElementById("submitBtn")
+  const searchInput = document.getElementById("searchInput")
   
   // State
   let contacts = []
@@ -46,6 +47,7 @@ const APIFUNCTIONS = {
   
   // Event listeners
   contactForm.addEventListener("submit", handleFormSubmit)
+  searchInput.addEventListener("input", handleSearch)
   
   // Functions
   async function loadContacts() {
@@ -54,9 +56,9 @@ const APIFUNCTIONS = {
     renderContacts()
   }
   
-  function renderContacts() {
+  function renderContacts(contactsToRender = contacts) {
     contactItems.innerHTML = ""
-    contacts.forEach((contact) => {
+    contactsToRender.forEach((contact) => {
       const li = document.createElement("li")
       li.className = "contact-item"
       li.innerHTML = `
@@ -138,5 +140,17 @@ const APIFUNCTIONS = {
     submitBtn.textContent = "Add Contact"
     editingContact = null
   }
-  
+  function handleSearch(e) {
+    console.log("searching");
+    const searchTerm = e.target.value.toLowerCase()
+    const filteredContacts = contacts.filter(
+      (contact) =>
+        contact.firstName.toLowerCase().includes(searchTerm) ||
+        contact.lastName.toLowerCase().includes(searchTerm) ||
+        contact.phone.includes(searchTerm) ||
+        contact.email.toLowerCase().includes(searchTerm),
+    )
+    console.log(filteredContacts);
+    renderContacts(filteredContacts)
+  }
   
